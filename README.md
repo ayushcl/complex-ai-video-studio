@@ -1,6 +1,6 @@
 # VEO Audio Production Pipeline
 
-Agency Swarm project for the Maxiion/Kunisys video generation pipeline.
+Agency Swarm project for the Ayush's video generation pipeline.
 
 ## Operator UI
 
