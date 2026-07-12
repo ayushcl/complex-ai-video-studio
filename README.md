@@ -1,6 +1,6 @@
 # VEO Audio Production Pipeline
 
-Agency Swarm project for the Ayush's video generation pipeline.
+Agency Swarm project for Ayush's video generation pipeline, which is informally named -complex-ai-video-studio.
 
 ## Operator UI
 
