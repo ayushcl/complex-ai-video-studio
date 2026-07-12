@@ -1,0 +1,12 @@
+# Treat binary assets as binary so git never applies line-ending conversion
+# (autocrlf on a PDF would corrupt it).
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp4 binary
+*.mov binary
+*.mp3 binary
+*.wav binary
+*.docx binary

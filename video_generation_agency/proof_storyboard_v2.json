@@ -1,0 +1,35 @@
+{
+  "project_name": "Cloudtech proof bridge test",
+  "brand_name": "Cloudtech",
+  "region": "UK",
+  "target_duration_seconds": 4,
+  "format": "Single 4-second presenter intro clip. Controlled proof test, not a finished advert.",
+  "scene": {
+    "description": "A professional British business presenter speaks one short line directly to camera in a modern office.",
+    "spoken_line": "Welcome to Cloudtech. Let us get started.",
+    "mood": "calm, professional, premium, understated"
+  },
+  "music_direction": {
+    "intent": "An extremely subtle instrumental background bed that sits quietly underneath the single spoken line and fades cleanly after the speech.",
+    "instrumentation": "warm low-frequency ambient pad with very light texture only",
+    "energy": "minimal and static, no movement or build",
+    "vocal_policy": "instrumental only, no vocals",
+    "fade": "gentle fade in, clean fade out within the clip",
+    "avoid": [
+      "beats",
+      "drums",
+      "percussion",
+      "melody",
+      "melodic hooks",
+      "catchy hooks",
+      "commercial jingle",
+      "stock-library style",
+      "cinematic swell",
+      "trailer build-up",
+      "vocal samples",
+      "lyrics",
+      "any reference to a specific artist or song"
+    ]
+  },
+  "notes": "Keep the bed minimal and quiet so it barely sits under the speech. This proves the music bridge end to end; it is not the final campaign."
+}

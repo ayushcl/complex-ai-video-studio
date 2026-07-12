@@ -1,0 +1,7 @@
+# Codex skill configuration for parallel-agent-planning.
+# Manual-only: do not let the model invoke this implicitly.
+# NOTE: confirm the exact current openai.yaml schema (and whether `allow_implicit_invocation`
+# is nested under `policy:` or top-level) against official Codex docs before relying on it:
+# https://developers.openai.com/codex/skills
+policy:
+  allow_implicit_invocation: false

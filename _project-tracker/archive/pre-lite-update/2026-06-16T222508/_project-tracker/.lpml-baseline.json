@@ -1,0 +1,23 @@
+{
+    "version":  "0.2.0",
+    "files":  {
+                  "AGENTS.md":  "03fd255962bd57c2e6c4615a737ab0f68164041481d0b96550b8a32ef79617dd",
+                  "CLAUDE.md":  "a3f097a0528ae80d77380d9a8dc0b0daa455c23e924ea7d09ad8c87a4130af5b",
+                  "_project-tracker/TRACKER.md":  "b9ad090523930cc2e3a9134735d4be75b92483f58b21ab98fe450d4da33272d8",
+                  "_project-tracker/LOCAL_ADDENDUM_PROMPT.md":  "ed056c6cd17451f3066ab161ea90a0269b6eb41a639ed44ed1044c85d9c0dad0",
+                  "_project-tracker/SKILLS.md":  "633715fec84dcfa3e8d325c6e3653c8e37a716f395e7eefd4765e6f08c58b438",
+                  "_project-tracker/LPML_VERSION":  "c58a749f70f5e1ba5394ebcdbfcfa02fa938c4a173d8e41e6c476a7c8b2acddd",
+                  "_project-tracker/PACKET_ACTIVE.example":  "1b63d41f041d364402acdca00e9ff5f73770ff146241dcab72a180e7f81d321c",
+                  "_project-tracker/skills/parallel-agent-planning/SKILL.md":  "0389899685c75f2d01ea4928981f7daed2150020ccbafad32477ee8027513432",
+                  "_project-tracker/skills/parallel-task-handoff/SKILL.md":  "cd833cef6ab032c5fafa7bfb75830c3311791c6355811b86e3224a9d87d82d53",
+                  "_project-tracker/skills/parallel-task-handoff/references/prompt_template.md":  "043151f80a4ab8b11c56938eb823e5532ed5ccb283a2fd55129435bb8b1e1417",
+                  ".agents/skills/parallel-agent-planning/SKILL.md":  "6e5017940c29bceb6d3840876f8903ed8f29f0abf27961abc78361b3ba385b7d",
+                  ".agents/skills/parallel-agent-planning/agents/openai.yaml":  "b883a1b46e8872b4f84342547a00de71ea689875865973c819b0840e86e0654c",
+                  ".agents/skills/parallel-task-handoff/SKILL.md":  "ea2cbf11823806bc5c8ded2c6e7054ce02b98b69864eaf9b66dbd3871decf375",
+                  ".agents/skills/parallel-task-handoff/agents/openai.yaml":  "ceb81196909f16f78f129c26c6b1f947946e2723ebf9729bbe3c3bd9ef77e7ed",
+                  ".agents/skills/parallel-task-handoff/references/prompt_template.md":  "043151f80a4ab8b11c56938eb823e5532ed5ccb283a2fd55129435bb8b1e1417",
+                  ".claude/skills/parallel-agent-planning/SKILL.md":  "457ce4ebd8e1ec5e02564cf4a198dab3cbc8050aa0c8245eb56ecac4ba2dd082",
+                  ".claude/skills/parallel-task-handoff/SKILL.md":  "9386eabe3affb925ca98b55f8e89e6291b7fafc0b77ba5a714d92ef3fb6868c0",
+                  ".claude/skills/parallel-task-handoff/references/prompt_template.md":  "043151f80a4ab8b11c56938eb823e5532ed5ccb283a2fd55129435bb8b1e1417"
+              }
+}

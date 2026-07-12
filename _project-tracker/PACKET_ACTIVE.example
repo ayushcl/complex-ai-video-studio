@@ -1,0 +1,5 @@
+# Example PACKET_ACTIVE marker
+#
+# The real active marker is named PACKET_ACTIVE with no extension.
+# It is created at packet SEED, remains present during RUN and FINALISING,
+# and is removed at FINALISE after durable summary capture and packet-log update.

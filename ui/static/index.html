@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Ad Pipeline — Operator Console</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="mode-simple">
+<canvas id="fluid-canvas" aria-hidden="true"></canvas>
+
+<div id="app">
+<header class="topbar glass">
+  <div class="brand">
+    <span class="brand-title" id="brand-title">Video <em>Ad Pipeline</em></span>
+    <span class="brand-sub" id="brand-sub">describe it · preview it · finish it</span>
+  </div>
+  <div class="top-actions">
+    <span class="admin-only hidden"><button type="button" id="btn-open-packets" class="btn btn-ghost btn-small">Packets</button></span>
+    <span class="admin-only hidden"><button type="button" id="btn-history" class="btn btn-ghost btn-small">Run history</button></span>
+    <span class="admin-only hidden"><button type="button" id="btn-settings" class="btn btn-ghost btn-small">Settings</button></span>
+    <div id="health-chips" class="health-chips"></div>
+    <button type="button" id="btn-mode" class="btn btn-small">Administrator</button>
+  </div>
+</header>
+
+<!-- ============================ SIMPLE MODE ============================ -->
+<main id="simple-root" class="simple-main">
+  <div class="simple-col">
+
+    <div class="card glass simple-card" id="s-describe">
+      <h2><span class="s-num">1</span> Describe your video
+        <span class="info-tip" tabindex="0" role="note"
+          aria-label="Paste your storyboard or scene descriptions, or upload a document. Plain text, Markdown, Word (.docx), PDF, and JSON all work. Tip: start each scene with 'Scene 1:', 'Scene 2:'… for the cleanest split."
+          title="Paste your storyboard or scene descriptions, or upload a document. Plain text, Markdown, Word (.docx), PDF, and JSON all work. Tip: start each scene with 'Scene 1:', 'Scene 2:'… for the cleanest split.">?</span>
+      </h2>
+      <textarea id="s-doc" rows="9" spellcheck="false" placeholder="Scene 1: A dark modern desk, warm copper light drifting through a glass prism…&#10;Scene 2: The camera pulls back slowly to reveal…"></textarea>
+      <div class="s-doc-row">
+        <label class="btn btn-small file-btn">Upload document
+          <input type="file" id="s-file" accept=".txt,.md,.markdown,.json,.docx,.pdf" hidden>
+        </label>
+        <span id="s-file-name" class="mini"></span>
+      </div>
+      <div class="s-image-zones" aria-label="Optional image inputs">
+        <div class="s-aspect-toggle" role="group" aria-label="Video orientation">
+          <button type="button" class="aspect-btn selected" data-aspect="9:16" aria-pressed="true">Portrait 9:16</button>
+          <button type="button" class="aspect-btn" data-aspect="16:9" aria-pressed="false">Landscape 16:9</button>
+        </div>
+
+        <section class="s-image-zone" id="s-reference-zone" data-image-kind="reference" tabindex="0" role="button" aria-disabled="false">
+          <input type="file" id="s-reference-file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" hidden>
+          <div class="s-image-zone-copy">
+            <strong>Reference / likeness image</strong>
+            <span>Use this for a person, avatar, product, logo, or brand object that should appear in the generated video.</span>
+          </div>
+          <div class="s-image-drop-prompt" id="s-reference-prompt">
+            <span class="s-image-drop-icon" aria-hidden="true">＋</span>
+            <span><b>Drop an image here</b> or click to upload</span>
+            <span class="mini">PNG, JPG, JPEG or WEBP · maximum 10 MB</span>
+          </div>
+          <div class="s-image-selection hidden" id="s-reference-selection">
+            <img id="s-reference-thumb" alt="Reference image preview">
+            <div class="s-image-meta">
+              <strong id="s-reference-name"></strong>
+              <code id="s-reference-path"></code>
+              <span class="mini" id="s-reference-size"></span>
+            </div>
+            <button type="button" class="btn btn-small s-image-clear" id="s-reference-clear">Clear</button>
+          </div>
+          <p class="s-image-disabled-note hidden" id="s-reference-disabled">Disabled — using the seed frame. Clear it to use a reference image.</p>
+          <p class="s-image-error hidden" id="s-reference-error" role="alert"></p>
+        </section>
+
+        <section class="s-image-zone" id="s-seed-zone" data-image-kind="seed" tabindex="0" role="button" aria-disabled="false">
+          <input type="file" id="s-seed-file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" hidden>
+          <div class="s-image-zone-copy">
+            <strong>Seed frame image</strong>
+            <span>Use this when you want the video to start from this exact image or composition.</span>
+          </div>
+          <div class="s-image-drop-prompt" id="s-seed-prompt">
+            <span class="s-image-drop-icon" aria-hidden="true">＋</span>
+            <span><b>Drop an image here</b> or click to upload</span>
+            <span class="mini">PNG, JPG, JPEG or WEBP · maximum 10 MB</span>
+          </div>
+          <div class="s-image-selection hidden" id="s-seed-selection">
+            <img id="s-seed-thumb" alt="Seed frame preview">
+            <div class="s-image-meta">
+              <strong id="s-seed-name"></strong>
+              <code id="s-seed-path"></code>
+              <span class="mini" id="s-seed-size"></span>
+            </div>
+            <button type="button" class="btn btn-small s-image-clear" id="s-seed-clear">Clear</button>
+          </div>
+          <p class="s-image-disabled-note hidden" id="s-seed-disabled">Disabled — using the reference image. Clear it to use a seed frame.</p>
+          <p class="s-image-error hidden" id="s-seed-error" role="alert"></p>
+          <details class="s-image-advanced" id="s-seed-advanced">
+            <summary>Advanced: use an existing workspace path</summary>
+            <p class="hint">For internal use, select or enter an existing image path instead of uploading a file.</p>
+            <div class="path-input">
+              <input id="s-seed" placeholder="path/to/seed_frame.png">
+              <button type="button" class="btn btn-small" id="s-seed-browse">Browse</button>
+            </div>
+          </details>
+        </section>
+      </div>
+      <div class="s-content-toggle" role="group" aria-label="Video type">
+        <button type="button" class="aspect-btn content-path-btn selected" data-content-path="silent_brand" aria-pressed="true">Silent brand</button>
+        <button type="button" class="aspect-btn content-path-btn" data-content-path="presenter" aria-pressed="false">Presenter</button>
+      </div>
+      <div class="s-presenter-block hidden" id="s-presenter-block">
+        <label class="s-presenter-label">Presenter voice</label>
+        <p class="micro">Listen to a sample, then choose the voice for this video.</p>
+        <div id="s-voice-status" class="micro"></div>
+        <div id="s-voice-list" class="s-voice-list" aria-live="polite"></div>
+        <div id="s-voice-selected" class="s-voice-selected hidden"></div>
+      </div>
+      <div class="fields-grid">
+        <div class="field">
+          <label>Video name <span class="mini">(optional)</span></label>
+          <input id="s-name" placeholder="acme-hero">
+        </div>
+      </div>
+      <div id="s-build-error" class="banner banner-error hidden"></div>
+      <div class="actions">
+        <button type="button" id="s-build" class="btn btn-free btn-big">Build the job <span class="tag tag-free">FREE</span></button>
+        <span class="mini" id="s-extract-note"></span>
+      </div>
+      <div id="s-recent" class="s-recent"></div>
+    </div>
+
+    <div class="card glass simple-card hidden" id="s-review">
+      <h2><span class="s-num">2</span> Review</h2>
+      <div id="s-review-body"></div>
+    </div>
+
+    <div class="card glass simple-card hidden" id="s-draft">
+      <h2><span class="s-num">3</span> Draft preview <span class="mini">quick preview · lower cost</span>
+        <span class="info-tip" tabindex="0" role="note"
+          aria-label="Generates the whole video with the quick preview setting so you can judge it before paying for the final pass."
+          title="Generates the whole video with the quick preview setting so you can judge it before paying for the final pass.">?</span>
+      </h2>
+      <div class="actions">
+        <button type="button" id="s-gen-draft" class="btn btn-paid btn-big">Generate draft preview <span class="tag tag-paid">PAID</span></button>
+        <span class="paid-note">Costs money — you confirm the exact estimate before anything runs.</span>
+      </div>
+      <div id="s-draft-error" class="banner banner-error hidden"></div>
+      <div id="s-draft-status"></div>
+      <div id="s-draft-video"></div>
+    </div>
+
+    <div class="card glass simple-card hidden" id="s-final">
+      <h2><span class="s-num">4</span> Final video <span class="mini">pick a quality tier · same prompts</span>
+        <span class="info-tip" tabindex="0" role="note"
+          aria-label="Happy with the draft? This regenerates it at the quality tier you pick, using the exact same prompts. You confirm the tier's exact estimate before anything runs."
+          title="Happy with the draft? This regenerates it at the quality tier you pick, using the exact same prompts. You confirm the tier's exact estimate before anything runs.">?</span>
+      </h2>
+      <p class="mini-label">Quality tier</p>
+      <div id="s-video-tiers" class="tier-row video-tier-row"></div>
+      <div class="actions">
+        <button type="button" id="s-gen-hq" class="btn btn-paid btn-big" disabled title="Generate a draft first">Generate final video <span class="tag tag-paid">PAID</span></button>
+        <span class="paid-note">Costs money — you confirm the exact estimate before anything runs.</span>
+      </div>
+      <div id="s-hq-error" class="banner banner-error hidden"></div>
+      <div id="s-hq-status"></div>
+      <div id="s-hq-video"></div>
+    </div>
+
+    <p class="micro s-footnote">Simple mode builds silent brand videos by default (music as the soundtrack). Switch to Presenter
+      to add a spoken voice. Existing-footage jobs and advanced controls live in the Administrator console.</p>
+  </div>
+</main>
+
+<!-- ============================ ADMIN MODE ============================ -->
+<main id="admin-root" class="hidden">
+  <!-- ====================== Launch-sequence spine ====================== -->
+  <nav id="stepper" class="stepper glass" aria-label="Launch sequence">
+    <button type="button" class="step active" data-step="job">
+      <span class="step-num">1</span>
+      <span class="step-text"><span class="step-label">Job</span><span class="step-sub">what &amp; from where</span></span>
+    </button>
+    <button type="button" class="step" data-step="voice" id="step-voice">
+      <span class="step-num">2</span>
+      <span class="step-text"><span class="step-label">Voice</span><span class="step-sub" id="step-voice-sub">human pick</span></span>
+    </button>
+    <button type="button" class="step" data-step="preview">
+      <span class="step-num">3</span>
+      <span class="step-text"><span class="step-label">Preview</span><span class="step-sub">dry-run · <b class="free-text">free</b></span></span>
+    </button>
+    <button type="button" class="step" data-step="launch">
+      <span class="step-num">4</span>
+      <span class="step-text"><span class="step-label">Launch</span><span class="step-sub"><b class="paid-text">spends money</b></span></span>
+    </button>
+  </nav>
+
+  <!-- ====================== Step content ====================== -->
+  <section id="content" class="content">
+
+    <!-- STEP 1 · JOB -->
+    <div class="step-panel active" id="panel-job">
+      <div class="card glass">
+        <h2>Set up the job</h2>
+        <div class="choice-group">
+          <p class="q">What are we making?</p>
+          <div class="choice-row" id="choice-content">
+            <button type="button" class="choice selected" data-field="content_path" data-value="silent_brand">
+              <span class="choice-title">Brand video</span>
+              <span class="choice-desc">No voice — music carries it</span>
+              <span class="choice-code">silent_brand</span>
+            </button>
+            <button type="button" class="choice" data-field="content_path" data-value="presenter">
+              <span class="choice-title">Presenter video</span>
+              <span class="choice-desc">Someone speaks — voice converted, music under</span>
+              <span class="choice-code">presenter</span>
+            </button>
+          </div>
+        </div>
+        <div class="choice-group">
+          <p class="q">Where does the video come from?</p>
+          <div class="choice-row" id="choice-source">
+            <button type="button" class="choice selected" data-field="video_source" data-value="existing">
+              <span class="choice-title">I have a video file</span>
+              <span class="choice-desc">Use footage already on disk</span>
+              <span class="choice-code">existing</span>
+            </button>
+            <button type="button" class="choice" data-field="video_source" data-value="generate">
+              <span class="choice-title">Generate it with Veo</span>
+              <span class="choice-desc">From a scenes file <b class="paid-text">· paid on launch</b></span>
+              <span class="choice-code">generate</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="experimental-banner" class="banner banner-warn hidden">
+          <strong>Experimental route:</strong> generated presenter videos haven't been validated end to end yet. The engine will plan it, but verify results manually.
+        </div>
+
+        <form id="packet-form" autocomplete="off">
+          <div class="fields-grid">
+            <div class="field" id="f-job-id">
+              <label>Job name</label>
+              <input name="job_id" placeholder="acme-hero-spot">
+            </div>
+            <div class="field" id="f-client">
+              <label>Client</label>
+              <input name="client" placeholder="Acme">
+            </div>
+          </div>
+
+          <div id="fs-existing" class="cond-block">
+            <div class="field path-field">
+              <label>Video file <span class="req">required</span></label>
+              <div class="path-input">
+                <input name="video_path" placeholder="clients/acme/raw.mp4">
+                <button type="button" class="btn btn-small browse-btn" data-target="video_path">Browse</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="fs-generate" class="cond-block hidden">
+            <div class="field path-field">
+              <label>Scenes file <span class="req">required</span> <span class="mini">— the Veo shot list (JSON); scene 1 carries the seed image inside it</span></label>
+              <div class="path-input">
+                <input name="scenes_path" placeholder="test/hero_scenes.json">
+                <button type="button" class="btn btn-small browse-btn" data-target="scenes_path">Browse</button>
+              </div>
+            </div>
+            <div id="scenes-inspect" class="inspect-box hidden"></div>
+            <div id="fs-presenter-reference" class="cond-block hidden">
+              <div class="field path-field">
+                <label>Presenter reference image <span class="mini">optional — preserves the selected adult presenter's appearance</span></label>
+                <div class="path-input">
+                  <input name="presenter_reference_image_path" placeholder="presenter_reference.jpeg">
+                  <button type="button" class="btn btn-small browse-btn" data-target="presenter_reference_image_path">Browse</button>
+                </div>
+                <p class="hint">Reference mode uses Veo 3.1 Fast at 8s, 720p, 16:9 with one adult asset reference.</p>
+              </div>
+            </div>
+            <div class="spend-cap">
+              <div class="spend-cap-main">
+                <label class="spend-label">Spend cap — scenes to generate</label>
+                <input name="max_scenes" type="number" min="1" step="1" value="1" class="spend-input">
+              </div>
+              <p class="hint">Every scene is a paid Veo generation. <strong>1 = seed scene only</strong> (the proven cheap proof). Raise deliberately.</p>
+            </div>
+          </div>
+
+          <div class="field path-field">
+            <label>Music direction <span class="req">required</span> <span class="mini">— storyboard JSON, steers the soundtrack on every job</span></label>
+            <div class="path-input">
+              <input name="storyboard_path" placeholder="test/hero_storyboard.json">
+              <button type="button" class="btn btn-small browse-btn" data-target="storyboard_path">Browse</button>
+            </div>
+          </div>
+
+          <div id="fs-voice" class="cond-block hidden">
+            <div class="field path-field">
+              <label>Brand voice <span class="req">required — human pick</span></label>
+              <div class="path-input">
+                <input name="prepared_voice_path" placeholder="picked on the Voice step" readonly>
+                <button type="button" class="btn btn-small" id="btn-goto-voice-inline">Pick voice →</button>
+              </div>
+              <p class="hint">Chosen by a human on step 2 — never auto-selected. The clip's length follows the voiceover. Accent lives in the video/scene prompts, not here.</p>
+            </div>
+          </div>
+
+          <details class="advanced">
+            <summary>Advanced</summary>
+            <div class="fields-grid">
+              <div class="field"><label>Campaign</label><input name="campaign"></div>
+              <div class="field"><label>Model</label><input name="model" value="veo-3.1-fast-generate-preview"></div>
+              <div class="field"><label>Resolution</label>
+                <select name="resolution"><option value="720p" selected>720p (proven)</option><option value="1080p">1080p</option><option value="4k">4k</option></select>
+              </div>
+              <div class="field"><label>Output dir</label><input name="output_dir" value="runs"></div>
+              <div class="field"><label>Spend notes</label><input name="spend_notes"></div>
+              <div class="field"><label>Job notes</label><input name="notes"></div>
+            </div>
+            <p class="hint hidden" id="presenter-reference-forced-note">Locked: a presenter reference image forces <strong>Veo 3.1 Fast · 720p · 8s</strong> for scene 1. Clear the reference image to choose your own model/resolution.</p>
+            <div class="actions">
+              <button type="button" id="btn-open-json" class="btn btn-small">Packet JSON — view / edit / paste</button>
+            </div>
+          </details>
+
+          <div id="job-error" class="banner banner-error hidden"></div>
+
+          <div class="actions step-actions">
+            <button type="button" id="btn-job-continue" class="btn btn-free btn-big">Save &amp; preview <span class="tag tag-free">FREE</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- STEP 2 · VOICE -->
+    <div class="step-panel" id="panel-voice">
+      <div class="card glass">
+        <h2>Pick the brand voice <span class="mini">— a human decision, on purpose</span></h2>
+        <p class="hint">Listen to the auditions below and choose. Samples are listed alphabetically — the tool never ranks, preselects, or defaults a voice. The pick is written to a <code>prepared_voice.json</code> the job references. Accent is <em>not</em> chosen here; it lives in the video/scene prompts.</p>
+        <div class="field path-field">
+          <label>Audition samples folder</label>
+          <div class="path-input">
+            <input id="audition-dir" placeholder="voice_auditions">
+            <button type="button" class="btn btn-small" id="btn-load-auditions">Load samples</button>
+          </div>
+        </div>
+        <div id="audition-error" class="banner banner-error hidden"></div>
+        <div id="audition-list" class="audition-list"></div>
+        <details class="advanced">
+          <summary>Already have a prepared_voice.json?</summary>
+          <div class="path-input">
+            <input id="existing-voice-path" placeholder="path/to/prepared_voice.json">
+            <button type="button" class="btn btn-small browse-btn" data-target="existing-voice-path-direct">Browse</button>
+            <button type="button" class="btn btn-small" id="btn-use-existing-voice">Use it</button>
+          </div>
+          <p class="hint">Only if it came from a real human audition pick.</p>
+        </details>
+        <div class="actions step-actions">
+          <button type="button" class="btn btn-ghost" data-goto="job">← Back to job</button>
+          <button type="button" id="btn-voice-continue" class="btn btn-free btn-big" disabled>Save &amp; preview <span class="tag tag-free">FREE</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 · PREVIEW -->
+    <div class="step-panel" id="panel-preview">
+      <div class="card glass">
+        <h2>Dry-run preview <span class="tag tag-free">FREE</span></h2>
+        <div id="dryrun-running" class="hint hidden">Validating through the real engine…</div>
+        <div id="dryrun-verdict"></div>
+        <div id="dryrun-warnings"></div>
+        <table class="kv" id="dryrun-summary"></table>
+        <div class="cmd-block">
+          <p class="mini-label">Derived command (what launch would execute)</p>
+          <pre id="dryrun-command" class="code-block"></pre>
+        </div>
+        <div class="actions">
+          <button type="button" id="btn-dryrun-again" class="btn btn-small">Re-run dry-run <span class="tag tag-free">FREE</span></button>
+          <button type="button" id="btn-engineplan" class="btn btn-small">Full engine plan <span class="tag tag-free">FREE</span></button>
+          <button type="button" id="btn-adapter-output" class="btn btn-small">Adapter output</button>
+        </div>
+        <div class="divider"></div>
+        <div id="spend-gate" class="spend-gate"></div>
+        <div class="actions step-actions">
+          <button type="button" class="btn btn-ghost" data-goto="job">← Edit job</button>
+          <button type="button" id="btn-preview-continue" class="btn btn-paid btn-big" disabled>Go to launch →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 · LAUNCH -->
+    <div class="step-panel" id="panel-launch">
+      <div class="card glass">
+        <h2>Launch <span class="tag tag-paid">PAID</span></h2>
+        <div class="live-zone">
+          <p><strong>Running live spends real money</strong> (Veo / ElevenLabs / Lyria, depending on the job). It never starts automatically and never from a single click.</p>
+          <button type="button" id="btn-live" class="btn btn-danger btn-big" disabled>Run live — this spends money</button>
+          <p class="hint" id="live-blocked-reason"></p>
+        </div>
+        <div id="live-error" class="banner banner-error hidden"></div>
+        <div id="run-detail"><p class="hint">No run yet. When you launch, truthful per-stage status appears here — straight from the engine's own output and manifest.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== Status rail ====================== -->
+  <aside class="rail">
+    <div class="card glass rail-card" id="rail-job">
+      <p class="rail-title">Job</p>
+      <div id="rail-job-body" class="rail-body"><p class="hint">Not saved yet.</p></div>
+    </div>
+    <div class="card glass rail-card" id="rail-gates">
+      <p class="rail-title">Spend gates</p>
+      <div id="rail-gates-body" class="rail-body"></div>
+      <p class="micro">Server re-checks every gate; the engine re-checks its own two on top.</p>
+    </div>
+    <div class="card glass rail-card rail-grow" id="rail-pipeline">
+      <p class="rail-title">Pipeline</p>
+      <div id="rail-pipeline-body" class="rail-body"></div>
+    </div>
+  </aside>
+</main>
+</div>
+
+<!-- ====================== Drawer (logs, reports, JSON, lists, settings) ====================== -->
+<div id="drawer" class="drawer hidden">
+  <div class="drawer-panel glass">
+    <div class="drawer-head">
+      <h2 id="drawer-title">—</h2>
+      <button type="button" id="btn-drawer-close" class="btn btn-ghost btn-small">Close ✕</button>
+    </div>
+    <div id="drawer-body" class="drawer-body"></div>
+  </div>
+</div>
+
+<!-- ====================== Spend confirmation: gate 2 ====================== -->
+<div id="confirm-modal" class="modal hidden">
+  <div class="modal-box glass-solid">
+    <h2 class="danger-text" id="confirm-title">Run live — this spends money</h2>
+    <div id="confirm-summary"></div>
+    <p id="confirm-detail">This executes <code id="confirm-command" class="inline-code"></code> with <code>--run</code>. Paid API calls will be made.</p>
+    <p>Type <strong>SPEND</strong> to confirm:</p>
+    <input id="confirm-input" autocomplete="off" placeholder="SPEND">
+    <div class="actions">
+      <button type="button" id="btn-confirm-cancel" class="btn">Cancel</button>
+      <button type="button" id="btn-confirm-live" class="btn btn-danger" disabled>Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== Simple-mode cost-aware confirm (no typing) ====================== -->
+<!-- One-click costed confirm for simple mode ONLY. Spending still takes a
+     distinct, deliberate second click: opening this dialog spends nothing; the
+     primary button sends a server-minted single-use token to /api/simple/generate.
+     The Administrator console keeps its own typed-SPEND modal (#confirm-modal). -->
+<div id="cost-confirm-modal" class="modal hidden">
+  <div class="modal-box glass-solid cost-confirm-box">
+    <h2 class="paid-text" id="cost-confirm-title">Generate — this spends money</h2>
+    <div id="cost-confirm-summary"></div>
+    <div id="cost-confirm-cost" class="cost-headline"></div>
+    <div id="cost-confirm-error" class="banner banner-error hidden"></div>
+    <p class="micro" id="cost-confirm-note">A server-issued one-time confirmation stands in for typing — but spending is still a separate, deliberate click. The full validation + spend gates run before any paid call.</p>
+    <div class="actions">
+      <button type="button" id="btn-cost-cancel" class="btn">Cancel</button>
+      <button type="button" id="btn-cost-confirm" class="btn btn-paid btn-big" disabled>Generate</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== File browser ====================== -->
+<div id="browse-modal" class="modal hidden">
+  <div class="modal-box glass-solid">
+    <h2>Choose a file</h2>
+    <div class="browse-path" id="browse-current">/</div>
+    <div id="browse-entries" class="browse-entries"></div>
+    <div class="actions">
+      <button type="button" id="btn-browse-cancel" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="/fluid.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

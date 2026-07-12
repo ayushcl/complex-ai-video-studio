@@ -1,0 +1,29 @@
+{
+  "job_id": "silent-brand-generate-maxiion-seed-proof",
+  "content_path": "silent_brand",
+  "video_source": "generate",
+  "video_path": null,
+  "scenes_path": "video_generation_agency/extension_scenes_maxiion.json",
+  "storyboard_path": "video_generation_agency/silent_bed_proof_storyboard.json",
+  "model": "veo-3.1-fast-generate-preview",
+  "resolution": "720p",
+  "max_scenes": 1,
+  "voice": {
+    "prepared_voice_path": null
+  },
+  "accent_dialect": null,
+  "start_stage": "video",
+  "output_settings": {
+    "output_dir": "runs",
+    "final_video_name": "final_video.mp4"
+  },
+  "spend_controls": {
+    "allow_live_run": false,
+    "notes": "Capped generated-video silent proof. Generates only the A01 seed scene before music and assembly."
+  },
+  "metadata": {
+    "client": "MAXIION",
+    "campaign": "Silent generated-video seed proof",
+    "notes": "Maps to run_full_chain.py --scenes ... --skip-sts --storyboard ... --model ... --resolution 720p --max-scenes 1"
+  }
+}

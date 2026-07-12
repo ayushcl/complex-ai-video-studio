@@ -1,0 +1,29 @@
+{
+  "job_id": "presenter-existing-proof-output-v2",
+  "content_path": "presenter",
+  "video_source": "existing",
+  "video_path": "proof_output_v2.mp4",
+  "scenes_path": null,
+  "storyboard_path": "video_generation_agency/proof_storyboard_v2.json",
+  "model": "veo-3.1-fast-generate-preview",
+  "resolution": "720p",
+  "max_scenes": null,
+  "voice": {
+    "prepared_voice_path": "prepared_voice.json"
+  },
+  "accent_dialect": null,
+  "start_stage": "sts",
+  "output_settings": {
+    "output_dir": "runs",
+    "final_video_name": "final_video.mp4"
+  },
+  "spend_controls": {
+    "allow_live_run": false,
+    "notes": "Existing-video presenter proof. No Veo spend; STS and music generation spend when run live."
+  },
+  "metadata": {
+    "client": "Cloudtech proof",
+    "campaign": "Presenter existing-video proof",
+    "notes": "Maps to run_full_chain.py --video proof_output_v2.mp4 --prepared-voice prepared_voice.json --storyboard ..."
+  }
+}

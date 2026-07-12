@@ -1,0 +1,21 @@
+{
+  "project_name": "Silent brand hero music-bed proof",
+  "brand_name": "Northwind (generic test brand)",
+  "region": "UK",
+  "target_duration_seconds": 41,
+  "format": "Silent branded hero video with no voiceover. The instrumental music is the entire audio layer and plays at full level for the whole clip.",
+  "scene": {
+    "description": "A modern, confident brand wordmark / motion-graphics hero. No presenter, no spoken words. Clean premium tech aesthetic.",
+    "spoken_line": "",
+    "mood": "confident, modern, premium, forward-looking"
+  },
+  "music_direction": {
+    "intent": "A present, full-level instrumental bed that carries the entire video on its own. This is the only audio, so it should feel intentional and engaging, not a quiet pad hiding under speech.",
+    "instrumentation": "warm synth pads, soft electronic pulse, light arpeggiated texture, subtle low-end foundation",
+    "energy": "gentle forward motion with a mild sense of build, confident but not aggressive",
+    "vocal_policy": "instrumental only, no vocals",
+    "fade": "gentle fade in at the start, clean fade out at the end of the clip",
+    "avoid": ["vocals","lyrics","vocal samples","commercial jingle","stock-library cliche","cinematic trailer swell","aggressive drops","any reference to a specific artist or song"]
+  },
+  "notes": "Generic test fixture for proving the silent/no-voice music path end to end. Not a real campaign. Music plays at full level as the sole audio layer; the brief should target a foreground bed, not an under-speech bed."
+}

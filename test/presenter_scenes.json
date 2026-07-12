@@ -1,0 +1,13 @@
+{
+  "campaign": "Reference presenter close-up proof",
+  "scenes": [
+    {
+      "mode": "image",
+      "seed_image": "presenter_reference.jpeg",
+      "duration_seconds": 8,
+      "prompt": "A tight medium-close shot of the referenced adult presenter speaking directly to camera in a warm, modern kitchen. Soft natural daylight shapes his face, with a clean contemporary background held gently out of focus. The referenced adult presenter maintains relaxed eye contact, natural posture and subtle friendly expression. His face remains clearly visible and consistent with the reference image throughout the shot. Camera is locked off at eye level with restrained, realistic commercial framing. Natural conversational delivery and accurate mouth movement. He says clearly and warmly: \"Hi, great to meet you. Let's get started.\" No other dialogue.",
+      "style": "photorealistic commercial presenter video, tight medium-close framing, warm natural light, modern kitchen, shallow depth of field, calm friendly delivery, realistic facial detail, stable identity",
+      "negative_prompt": "wide shot, long shot, full body, distant presenter, side profile, face turned away, face obscured, identity drift, changing facial features, different person, extra people, background people, duplicate person, distorted face, asymmetrical eyes, malformed mouth, unnatural teeth, exaggerated expression, stiff delivery, theatrical gestures, rapid movement, camera shake, handheld camera, zoom, jump cut, harsh studio light, cold blue lighting, dark face, overexposure, cluttered kitchen, readable text, captions, subtitles, on-screen text, logos, watermarks, extra dialogue, narration, music"
+    }
+  ]
+}

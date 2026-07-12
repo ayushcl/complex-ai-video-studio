@@ -1,0 +1,29 @@
+{
+  "job_id": "silent-brand-existing-maxiion-proof",
+  "content_path": "silent_brand",
+  "video_source": "existing",
+  "video_path": "veo_chain_runs/maxiion_20260610_121621/latest_final_silent.mp4",
+  "scenes_path": null,
+  "storyboard_path": "video_generation_agency/silent_bed_proof_storyboard.json",
+  "model": "veo-3.1-fast-generate-preview",
+  "resolution": "720p",
+  "max_scenes": null,
+  "voice": {
+    "prepared_voice_path": null
+  },
+  "accent_dialect": null,
+  "start_stage": "extract",
+  "output_settings": {
+    "output_dir": "runs",
+    "final_video_name": "final_video.mp4"
+  },
+  "spend_controls": {
+    "allow_live_run": false,
+    "notes": "Existing-video silent proof. No Veo spend; music generation spend only when run live."
+  },
+  "metadata": {
+    "client": "MAXIION",
+    "campaign": "Silent existing-video proof",
+    "notes": "Maps to run_full_chain.py --video ... --skip-sts --storyboard ..."
+  }
+}

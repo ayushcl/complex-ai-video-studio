@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "base": [
+      "readable text",
+      "captions",
+      "subtitles",
+      "watermarks",
+      "logos",
+      "brand marks",
+      "identifiable faces",
+      "distortion",
+      "low quality",
+      "camera shake"
+    ]
+  },
+  "positive_reframe": "clean, well-composed frame with a single clear subject, sharp focus, steady camera, polished commercial framing, and uncluttered visual presentation"
+}

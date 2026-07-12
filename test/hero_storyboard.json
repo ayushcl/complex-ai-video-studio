@@ -1,0 +1,21 @@
+{
+  "project_name": "Website hero background - dark premium workspace",
+  "brand_name": "Unbranded hero test",
+  "region": "UK",
+  "target_duration_seconds": 8,
+  "format": "Silent 8 second website hero background loop. The music is the entire audio layer at full level; there is no speech.",
+  "scene": {
+    "description": "A near-black contemporary interior with a minimal dark desk. Warm copper-gold light passes through a clear glass prism, sending slow refracted bands and soft caustic streaks across the dark surface, grazing the edge of a closed laptop. The left of frame stays deep and quiet; motion is restrained to the slow drift of warm light.",
+    "spoken_line": "",
+    "mood": "calm, premium, modern, controlled, warm, quietly confident"
+  },
+  "music_direction": {
+    "intent": "A present, intentional foreground bed that mirrors light slowly emerging from darkness: warm, spacious and unhurried, with a sense of clarity and order arriving. It carries the clip on its own without competing for attention.",
+    "instrumentation": "warm low synth foundation, soft felt-piano motif, slow-breathing analog pad, sparse soft electronic pulse, faint glassy shimmer accents",
+    "energy": "low and steady with a gentle gradual bloom across the clip, no drops, no builds to a climax, no rhythmic urgency",
+    "vocal_policy": "instrumental only, no vocals",
+    "fade": "gentle fade in over the first second, clean unhurried fade out at the end",
+    "avoid": ["vocals", "lyrics", "vocal samples", "commercial jingle", "stock-library cliche", "cinematic orchestral swell", "aggressive percussion", "cold digital textures", "tension or suspense cues", "any reference to a specific artist or song"]
+  },
+  "notes": "Visuals are near-black with warm amber and copper refraction only; the music should feel like the audio equivalent of that palette: warm, dark, precise, premium. Silent job: this bed is the sole audio layer."
+}

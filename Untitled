@@ -1,0 +1,1 @@
+python3 segments_to_audio.py --segments /Users/ayushmac/Desktop/json-tts-test/segments.json
